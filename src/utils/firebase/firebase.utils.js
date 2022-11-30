@@ -1,3 +1,4 @@
+
 import { initializeApp } from 'firebase/app';
 import {
   getAuth,
@@ -36,6 +37,7 @@ provider.setCustomParameters({
 
 export const auth = getAuth();
 export const signInWithGooglePopUp = () => signInWithPopup(auth, provider);
+export const signInWithGoogleRedirect = () => signInWithRedirect(auth, provider);
 
 export const db = getFirestore();
 
