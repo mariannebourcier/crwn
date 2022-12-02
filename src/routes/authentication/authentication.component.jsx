@@ -7,12 +7,12 @@ import {
   signInWithGoogleRedirect,
   createUserDocumentFromAuth,
 } from '../../utils/firebase/firebase.utils'
+import SignInForm from '../../components/signin-form/signin-form.component';
+
+import './authentication.styles.scss';
 
 
-
-
-
-const Signin = () => {
+const Authentication = () => {
 
   // useEffect( async () => {
   //  const response = await getRedirectResult(auth)
@@ -31,13 +31,11 @@ const Signin = () => {
   // }
 
   return (
-    <div>
-      signin
-      <button onClick={logGoogleUser}>Sign in with google</button>
-
+    <div className='authentication-container'>
+      <SignInForm />
       <SignUpForm />
     </div>
   )
 }
 
-export default Signin;
+export default Authentication;
