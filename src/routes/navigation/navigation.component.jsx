@@ -4,11 +4,15 @@ import { ReactComponent as CrwnLogo } from '../../assets/crown.svg'
 import './navigation.styles.scss';
 import { UserContext } from '../../contexts/user.context';
 import { signOutUser } from '../../utils/firebase/firebase.utils'
+import CartIcon from '../../components/cart-icon/cart-icon.component';
+import { CartContext } from '../../contexts/cart.context';
+import CartDropDown from '../../components/cart-dropdown/cart-dropdown.component';
 
 const Navigation = () => {
   // remove sign out handler but still need currentUser to track sign in / sign out btn state
   const { currentUser } = useContext(UserContext)
 
+  const { isCartOpen } = useContext(CartContext)
 
   return (
     <Fragment>
@@ -30,8 +34,9 @@ const Navigation = () => {
               )
             
           }
-         
+         <CartIcon />
         </div>
+        {isCartOpen && <CartDropDown />}
       </div>
       <Outlet />
     </Fragment>
