@@ -1,6 +1,6 @@
-import React, { createContext, useState } from "react"
-import PRODUCTS from '../shop-data.json';
-
+import React, { createContext, useState, useEffect } from "react"
+import SHOP_DATA from '../shop-data.js';
+import { addCollectionAndDocuments } from "../utils/firebase/firebase.utils.js";
 // this context sets the products state 
 // use in index.js
 
@@ -12,7 +12,11 @@ export const ProductsContext = createContext({
 
 // provider
 export const ProductsProvider = ({children}) => {
-  const [products, setProducts] = useState(PRODUCTS);
+  const [products, setProducts] = useState([]);
+  // useEffect(() => {
+  //   addCollectionAndDocuments('categories', SHOP_DATA)
+  // }, [])
+  // sets db once to send data to firebase
   const value = {products}
   return (
     <ProductsContext.Provider value={value}>
