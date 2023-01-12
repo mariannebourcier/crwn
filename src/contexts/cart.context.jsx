@@ -17,13 +17,17 @@ const addCartItem = (cartItems, productToAdd) => {
   // return new array with modified cart items/ new cart item
   return [...cartItems, { ...productToAdd, quantity: 1}]
 };
+const clearCartItem = (cartItems, cartItemToRemove) =>  cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id)
+
 
 export const CartContext = createContext({
   isCartOpen: false,
   setIsCartOpen: () => {},
   cartItems: [],
   addItemToCart: () => {},
-  cartCount: 0
+  removeItemFromCart: () => {},
+  cartCount: 0,
+  clearItemFromCart: () => {}
 })
  
 export const CartProvider = ({children}) => {
@@ -42,7 +46,36 @@ export const CartProvider = ({children}) => {
 
   }
 
-  const value = {isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount}
+  const removeCartItem = (cartItems, cartItemToRemove) => {
+    // removing cart item that already exists
+    // find the cart item to remove
+    const existingCartItem = cartItems.find((cartItem) => cartItem.id === cartItemToRemove.id)
+    // check if quantity is equal to 1,
+    if (existingCartItem.quantity === 1) {
+      // if statement true, return value
+      return cartItems.filter(cartItem => cartItem.id !== cartItemToRemove.id)
+    }
+    // if it is , remove item from cart
+    // if it isnt, return back cartitems with matching cart with reduced quantity
+    return cartItems.map((cartItem) => 
+    cartItem.id === cartItemToRemove.id?
+    // if id matches one being removed, give a new obj where qty has been reduced by 1
+    { ...cartItem, quantity: cartItem.quantity - 1}
+    : cartItem)
+
+  } 
+
+  const removeItemToCart = (cartItemToRemove) => {
+    setCartItems(removeCartItem(cartItems, cartItemToRemove))
+
+  }
+  const clearItemFromCart = (cartItemToClear) => {
+    setCartItems(clearCartItem(cartItems, cartItemToClear))
+
+  }
+  
+
+  const value = {isCartOpen, setIsCartOpen, addItemToCart, cartItems, cartCount, removeItemToCart, clearItemFromCart}
 
 
   return (
