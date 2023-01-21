@@ -2,7 +2,7 @@ import { useState, useContext } from "react";
 import { createAuthUserWithEmailAndPassword, createUserDocumentFromAuth } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/form-input.component";
 import './signup-form.styles.scss'
-import Button from "../button/button.component";
+import Button, {BUTTON_TYPE_CLASSES} from "../button/button.component";
 
 const defaultFormFields = {
   displayName: '',
@@ -103,7 +103,7 @@ const SignUpForm = () => {
         <input type="password" required onChange={handleChange} name="password" value={password} />
         <label>Confirm Password</label>
         <input type="password" required onChange={handleChange} name="confirmPassword" value={confirmPassword} /> */}
-        <Button type="submit">Sign Up</Button>
+        <Button type="submit" buttonType={BUTTON_TYPE_CLASSES.inverted}>Sign Up</Button>
       </form>
     </div>
   )
